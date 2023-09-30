@@ -1,0 +1,57 @@
+1. **What is the concept of an abstract superclass?**
+   - An abstract superclass (or abstract base class) in object-oriented programming is a class that is not meant to be instantiated on its own but serves as a blueprint for other classes. It typically contains abstract methods, which are method declarations without implementations. Subclasses that inherit from the abstract superclass are required to provide concrete implementations for these abstract methods. Abstract superclasses are used to enforce a common interface or behavior among their subclasses.
+
+2. **What happens when a class statement's top level contains a basic assignment statement?**
+   - When a class statement's top level contains a basic assignment statement (outside of any method), it defines a class attribute. This attribute is shared among all instances of the class and can be accessed using the class name or instance name. Class attributes are typically used to store data that is common to all instances of the class.
+
+   Example:
+   ```python
+   class MyClass:
+       class_attribute = 42
+
+   obj1 = MyClass()
+   print(obj1.class_attribute)  # Access class attribute through an instance
+   print(MyClass.class_attribute)  # Access class attribute through the class name
+   ```
+
+3. **Why does a class need to manually call a superclass's __init__ method?**
+   - In Python, when you define a constructor (`__init__` method) in a subclass, it does not automatically call the superclass's `__init__` method unless you explicitly do so using `super()`. If you want to initialize attributes and perform any necessary setup defined in the superclass, you need to call the superclass's `__init__` method within the subclass's `__init__` method using `super().__init__()`.
+
+   Example:
+   ```python
+   class Parent:
+       def __init__(self):
+           self.value = 42
+
+   class Child(Parent):
+       def __init__(self):
+           super().__init__()  # Call the superclass's __init__ method
+           self.child_value = 10
+   ```
+
+4. **How can you augment, instead of completely replacing, an inherited method?**
+   - To augment an inherited method (i.e., extend or modify its behavior while preserving some or all of the original behavior), you can override the method in the subclass and then explicitly call the superclass's method within the overridden method using `super()`. This allows you to add functionality before or after calling the parent method, effectively augmenting it.
+
+   Example:
+   ```python
+   class Parent:
+       def method(self):
+           print("Parent's method")
+
+   class Child(Parent):
+       def method(self):
+           print("Child's method")
+           super().method()  # Call the parent method to augment it
+
+   obj = Child()
+   obj.method()
+   ```
+
+5. **How is the local scope of a class different from that of a function?**
+   - The local scope of a class and that of a function differ in the following ways:
+     - **Variables:** In a class, variables defined at the class level (outside of methods) are class attributes and are accessible throughout the class and its instances. In a function, variables defined within the function are local to that function and are not accessible outside of it.
+     - **Methods:** In a class, methods defined within the class are accessible as attributes of instances of that class. In a function, functions defined within another function are only accessible within the scope of the enclosing function.
+     - **Self-reference:** In a class, the `self` parameter refers to the instance of the class and allows access to instance attributes and methods. In a function, there is no `self` parameter, and you work with local variables and function parameters.
+     - **Inheritance:** In a class, you can use inheritance to create subclasses that inherit attributes and methods from a superclass. In a function, there is no inherent concept of inheritance.
+   
+   Overall, classes provide a structured way to define and organize data and behavior, whereas functions are primarily used to encapsulate reusable code in a more modular way.
